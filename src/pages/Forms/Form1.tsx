@@ -65,40 +65,30 @@ export default function Form1() {
           )}
         />
       </Grid>
-      <Grid item>
-        <Grid
-          container
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-            <Autocomplete
-              id="combo-box-demo"
-              options={govtIdTypeList}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Govt Id Type"
-                  size="medium"
-                  fullWidth
-                  required
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Autocomplete
+          id="combo-box-demo"
+          options={govtIdTypeList}
+          renderInput={(params) => (
             <TextField
-              required
-              id="outlined-required"
-              label="Enter Govt Id"
-              placeholder="Enter Govt Id"
+              {...params}
+              label="Govt Id Type"
               size="medium"
               fullWidth
+              required
             />
-          </Grid>
-        </Grid>
+          )}
+        />
+      </Grid>
+      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <TextField
+          required
+          id="outlined-required"
+          label="Enter Govt Id"
+          placeholder="Enter Govt Id"
+          size="medium"
+          fullWidth
+        />
       </Grid>
     </Grid>
   );

@@ -8,10 +8,7 @@ import {
   Grid,
   MobileStepper,
   Typography,
-  useTheme,
 } from "@mui/material";
-import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
-import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import Form1 from "../Forms/Form1";
 import Form2 from "../Forms/Form2";
 
@@ -27,7 +24,6 @@ const steps = [
 ];
 
 export default function Login() {
-  const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);
   const maxSteps = steps.length;
 
@@ -41,7 +37,7 @@ export default function Login() {
 
   const pageMarkup = (
     <Grid container direction="row" justifyContent="center" alignItems="center">
-      <Card>
+      <Card sx={{ minWidth: 500 }}>
         <img src={OnitoLogo} alt="Logo" height="80" />
         <CardContent>
           <Box py={1}>
@@ -62,11 +58,6 @@ export default function Login() {
                 disabled={activeStep === maxSteps - 1}
               >
                 Next
-                {theme.direction === "rtl" ? (
-                  <KeyboardArrowLeft />
-                ) : (
-                  <KeyboardArrowRight />
-                )}
               </Button>
             }
             backButton={
@@ -75,11 +66,6 @@ export default function Login() {
                 onClick={handleBack}
                 disabled={activeStep === 0}
               >
-                {theme.direction === "rtl" ? (
-                  <KeyboardArrowRight />
-                ) : (
-                  <KeyboardArrowLeft />
-                )}
                 Back
               </Button>
             }
