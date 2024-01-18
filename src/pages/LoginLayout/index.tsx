@@ -9,8 +9,8 @@ import {
   MobileStepper,
   Typography,
 } from "@mui/material";
-import Form1 from "../Forms/Form1";
-import Form2 from "../Forms/Form2";
+import { Form1 } from "../Forms/Form1";
+import { Form2 } from "../Forms/Form2";
 
 const steps = [
   {
@@ -25,6 +25,7 @@ const steps = [
 
 export default function Login() {
   const [activeStep, setActiveStep] = React.useState(0);
+  console.log("activeStep", activeStep);
   const maxSteps = steps.length;
 
   const handleNext = () => {

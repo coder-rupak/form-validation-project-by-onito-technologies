@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Grid, TextField } from "@mui/material";
 
-export default function Form2() {
+export const Form2: React.FC = () => {
   const secondFormMarkup = (
     <Grid
       container
