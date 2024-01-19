@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Autocomplete,
   Button,
@@ -11,21 +10,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 const sexList = [
-  { label: "Female", value: 1 },
-  { label: "Male", value: 2 },
+  { label: "Female", value: "Female" },
+  { label: "Male", value: "Male" },
 ];
 
 const govtIdTypeList = [
-  { label: "Aadhar", value: 1 },
-  { label: "Pan", value: 2 },
+  { label: "Aadhar", value: "Aadhar" },
+  { label: "Pan", value: "Pan" },
 ];
 
 interface FormInput {
   name: string;
-  // dob: string;
-  // mobile: string;
-  // sex: string;
-  // govtType: string;
+  age: number;
+  mobile: string;
+  sex: NonNullable<"Female" | "Male" | undefined>;
+  // govtType: NonNullable<"Aadhar" | "Pan" | undefined>;
   // govtId: string;
 }
 
@@ -39,19 +38,38 @@ const schema = yup.object().shape({
     .string()
     .required("Name required")
     .min(3, "Min 3 character required"),
-  // dob: yup.string().required("DOB required"),
-  // mobile: yup
+  age: yup
+    .number()
+    .typeError("DOB must be a number")
+    .required("Age is required")
+    .positive("Age must be a positive number")
+    .integer("Age must be an integer"),
+  mobile: yup
+    .string()
+    .required("Phone number required")
+    .matches(/^[6-9]\d{9}$/, "Please enter valid phone number"),
+  sex: yup
+    .string()
+    .oneOf(["Female", "Male"], "Invalid gender")
+    .required("Gender is required"),
+  // govtType: yup
   //   .string()
-  //   .required("Phone number required")
-  //   .matches(
-  //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-  //     "Please enter valid phone number"
-  //   ),
-  // sex: yup.string().required("Please select sex"),
-  // // govtType: yup.string().required("Phone is a required field"),
-  // govtId:
-  //   yup.string().required("Please type 12 digit Aadhar number").min(12) ||
-  //   yup.string().required("Please type 10 digit Pan number").min(10),
+  //   .oneOf(["Aadhar", "Pan"])
+  //   .required("ID Type is required"),
+  // govtId: yup.string().when("govtType", {
+  //   is: 'Aadhar',
+  //   then: yup
+  //     .string()
+  //     .matches(
+  //       /^[2-9]\d{11}$/,
+  //       "Aadhar ID must be 12 digits and not start with 0 or 1"
+  //     )
+  //     .required("Aadhar ID is required"),
+  //   otherwise: yup
+  //     .string()
+  //     .length(10, "PAN ID must be 10 characters")
+  //     .required("PAN ID is required"),
+  // }),
 });
 
 export const Form1 = ({ onContinue }: Props) => {
@@ -97,8 +115,12 @@ export const Form1 = ({ onContinue }: Props) => {
               placeholder="Age in Years"
               size="medium"
               fullWidth
-              // {...register("dob")}
+              type="number"
+              {...register("age")}
             />
+            <Typography color="red" sx={{ pt: 1 }}>
+              {errors.age && errors?.age?.message}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <TextField
@@ -107,8 +129,11 @@ export const Form1 = ({ onContinue }: Props) => {
               placeholder="Enter Mobile"
               size="medium"
               fullWidth
-              // {...register("mobile")}
+              {...register("mobile")}
             />
+            <Typography color="red" sx={{ pt: 1 }}>
+              {errors.mobile && errors?.mobile?.message}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <Autocomplete
@@ -120,10 +145,13 @@ export const Form1 = ({ onContinue }: Props) => {
                   label="Sex"
                   size="medium"
                   fullWidth
-                  // {...register("sex")}
+                  {...register("sex")}
                 />
               )}
             />
+            <Typography color="red" sx={{ pt: 1 }}>
+              {errors.sex && errors?.sex?.message}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             <Autocomplete
@@ -154,7 +182,6 @@ export const Form1 = ({ onContinue }: Props) => {
             <Button variant="contained" fullWidth size="medium" type="submit">
               Continue
             </Button>
-            {/* <input type="submit" /> */}
           </Grid>
         </Grid>
       </form>

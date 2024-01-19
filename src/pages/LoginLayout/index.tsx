@@ -34,7 +34,6 @@ export default function Login() {
       <Card sx={{ minWidth: 500 }}>
         <img src={OnitoLogo} alt="Logo" height="80" />
         <CardContent>
-          {/* <Form1 onContinue={handleNext}/> */}
           <Box py={1}>
             <Typography fontWeight="bold">
               {steps[activeStep].header}
