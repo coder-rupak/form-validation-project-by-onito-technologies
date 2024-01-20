@@ -8,8 +8,8 @@ import {
   MobileStepper,
   Typography,
 } from "@mui/material";
-import { Form1 } from "../Forms/Form1";
-import { Form2 } from "../Forms/Form2";
+import { Form1 } from "./Forms/Form1";
+import { Form2 } from "./Forms/Form2";
 import "./stepper.css";
 
 export const Login = () => {

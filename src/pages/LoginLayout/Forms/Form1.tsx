@@ -2,7 +2,10 @@ import { Autocomplete, Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { ResponseMessage } from "../../component/ResponseMessage";
+import { ResponseMessage } from "../../../component/ResponseMessage";
+import { useDispatch } from "react-redux";
+import { setValue } from "../../../store/formData/formDataSlice";
+// import { useNavigate } from "react-router-dom";
 
 const sexList = [
   { label: "Female", value: "Female" },
@@ -74,6 +77,8 @@ const schema = yup.object().shape({
 });
 
 export const Form1 = ({ onContinue }: Props) => {
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -83,6 +88,8 @@ export const Form1 = ({ onContinue }: Props) => {
   const onSubmit = (data: FormInput) => {
     onContinue();
     console.log(data);
+    dispatch(setValue(data));
+    // navigate(`/dashboard`)
   };
 
   const firstFormMarkup = (
