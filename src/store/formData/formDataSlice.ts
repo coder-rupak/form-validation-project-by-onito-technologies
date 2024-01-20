@@ -1,13 +1,17 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface FormState {
-  name: string;
-  age: number;
-  mobile: string;
-  sex: string;
-  govtIdType: string;
-  govtId: string;
-  // Add more form fields as needed
+  name?: string;
+  age?: number;
+  mobile?: string;
+  sex?: string;
+  govtIdType?: string;
+  govtId?: string;
+  address?: string;
+  state?: string;
+  city?: string;
+  country?: string;
+  pincode?: string;
 }
 
 const initialState: FormState = {
@@ -17,6 +21,11 @@ const initialState: FormState = {
   sex: "",
   govtIdType: "",
   govtId: "",
+  address: "",
+  state: "",
+  city: "",
+  country: "",
+  pincode: "",
 };
 
 const formDataSlice = createSlice({

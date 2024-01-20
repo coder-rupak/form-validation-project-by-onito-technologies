@@ -5,7 +5,6 @@ import * as yup from "yup";
 import { ResponseMessage } from "../../../component/ResponseMessage";
 import { useDispatch } from "react-redux";
 import { setValue } from "../../../store/formData/formDataSlice";
-// import { useNavigate } from "react-router-dom";
 
 const sexList = [
   { label: "Female", value: "Female" },
@@ -60,6 +59,7 @@ const schema = yup.object().shape({
   //   then: (schema) => schema.required("Needed"),
   //   otherwise: (schema) => schema, // technically this otherwise isnt needed
   // }),
+  
   // govtId: yup.string().when("govtIdType", {
   //   is: "Aadhar", //(govtIdType: string) => govtIdType === 'Aadhar',
   //   then: yup
@@ -78,18 +78,16 @@ const schema = yup.object().shape({
 
 export const Form1 = ({ onContinue }: Props) => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInput>({ resolver: yupResolver(schema) });
-
+  
   const onSubmit = (data: FormInput) => {
     onContinue();
     console.log(data);
     dispatch(setValue(data));
-    // navigate(`/dashboard`)
   };
 
   const firstFormMarkup = (
@@ -115,7 +113,7 @@ export const Form1 = ({ onContinue }: Props) => {
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <TextField
-              id="outlined-required"
+              id="age"
               label="Age"
               placeholder="Age in Years"
               size="medium"
@@ -127,7 +125,7 @@ export const Form1 = ({ onContinue }: Props) => {
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <TextField
-              id="outlined-required"
+              id="mobile"
               label="Mobile"
               placeholder="Enter Mobile"
               size="medium"
@@ -140,7 +138,7 @@ export const Form1 = ({ onContinue }: Props) => {
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <Autocomplete
-              id="combo-box-demo"
+              id="sex"
               options={sexList}
               renderInput={(params) => (
                 <TextField
@@ -156,7 +154,7 @@ export const Form1 = ({ onContinue }: Props) => {
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             <Autocomplete
-              id="combo-box-demo"
+              id="govtIdType"
               options={govtIdTypeList}
               renderInput={(params) => (
                 <TextField
@@ -174,7 +172,7 @@ export const Form1 = ({ onContinue }: Props) => {
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             <TextField
-              id="outlined-required"
+              id="govtId"
               label="Enter Govt Id"
               placeholder="Enter Govt Id"
               size="medium"
