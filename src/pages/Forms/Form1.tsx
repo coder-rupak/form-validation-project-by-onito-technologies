@@ -29,7 +29,7 @@ interface FormInput {
 }
 
 type Props = {
-  onContinue: any;
+  onContinue: () => void;
 };
 
 // yup schema
@@ -58,10 +58,7 @@ const schema = yup.object().shape({
   //   .required("ID Type is required"),
   // govtId: yup.string().when("govtType", {
   //   is: 'Aadhar',
-  //   then: yup
-  //     .string()
-  //     .matches(
-  //       /^[2-9]\d{11}$/,
+  //   then: yupe:
   //       "Aadhar ID must be 12 digits and not start with 0 or 1"
   //     )
   //     .required("Aadhar ID is required"),
@@ -71,7 +68,6 @@ const schema = yup.object().shape({
   //     .required("PAN ID is required"),
   // }),
 });
-
 export const Form1 = ({ onContinue }: Props) => {
   const {
     register,
