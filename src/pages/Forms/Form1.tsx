@@ -20,7 +20,7 @@ interface FormInput {
   mobile: string;
   sex: NonNullable<"Female" | "Male" | undefined>;
   govtIdType: NonNullable<"Aadhar" | "Pan" | undefined>;
-  // govtId: string;
+  govtId: string;
 }
 
 type Props = {
@@ -51,6 +51,7 @@ const schema = yup.object().shape({
     .string()
     .oneOf(["Aadhar", "Pan"], "Please select Govt Id Type")
     .required("Govt Id Type is required"),
+  govtId: yup.string().required("Govt Id required"),
   // govtId: yup.string().when("govtIdType", {
   //   is: "Aadhar",
   //   then: (schema) => schema.required("Needed"),
@@ -171,11 +172,11 @@ export const Form1 = ({ onContinue }: Props) => {
               placeholder="Enter Govt Id"
               size="medium"
               fullWidth
-              // {...register("govtId")}
+              {...register("govtId")}
             />
-            {/* <ResponseMessage
+            <ResponseMessage
               message={errors.govtId && errors?.govtId?.message}
-            /> */}
+            />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <Button variant="contained" fullWidth size="medium" type="submit">
