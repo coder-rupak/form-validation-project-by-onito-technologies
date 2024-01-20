@@ -1,6 +1,6 @@
 import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Login from "./pages/LoginLayout";
+import { Login } from "./pages/LoginLayout";
 
 const defaultTheme = createTheme();
 

@@ -12,7 +12,7 @@ import { Form1 } from "../Forms/Form1";
 import { Form2 } from "../Forms/Form2";
 import "./stepper.css";
 
-export default function Login() {
+export const Login = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);

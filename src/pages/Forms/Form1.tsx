@@ -1,13 +1,8 @@
-import {
-  Autocomplete,
-  Button,
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Autocomplete, Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { ResponseMessage } from "../../component/ResponseMessage";
 
 const sexList = [
   { label: "Female", value: "Female" },
@@ -24,7 +19,7 @@ interface FormInput {
   age: number;
   mobile: string;
   sex: NonNullable<"Female" | "Male" | undefined>;
-  // govtType: NonNullable<"Aadhar" | "Pan" | undefined>;
+  govtIdType: NonNullable<"Aadhar" | "Pan" | undefined>;
   // govtId: string;
 }
 
@@ -52,12 +47,13 @@ const schema = yup.object().shape({
     .string()
     .oneOf(["Female", "Male"], "Invalid gender")
     .required("Gender is required"),
-  // govtType: yup
-  //   .string()
-  //   .oneOf(["Aadhar", "Pan"])
-  //   .required("ID Type is required"),
-  // govtId: yup.string().when("govtType", {
-  //   is: 'Aadhar',
+  govtIdType: yup
+    .string()
+    .oneOf(["Aadhar", "Pan"])
+    .required("ID Type is required"),
+  // govtId: yup.string().when("govtIdType", {// <Typography color="red" sx={{ pt: 1 }}>
+  //   {errors.name && errors?.name?.message}
+  // </Typography>
   //   then: yupe:
   //       "Aadhar ID must be 12 digits and not start with 0 or 1"
   //     )
@@ -100,9 +96,7 @@ export const Form1 = ({ onContinue }: Props) => {
               fullWidth
               {...register("name")}
             />
-            <Typography color="red" sx={{ pt: 1 }}>
-              {errors.name && errors?.name?.message}
-            </Typography>
+            <ResponseMessage message={errors.name && errors?.name?.message} />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <TextField
@@ -114,9 +108,7 @@ export const Form1 = ({ onContinue }: Props) => {
               type="number"
               {...register("age")}
             />
-            <Typography color="red" sx={{ pt: 1 }}>
-              {errors.age && errors?.age?.message}
-            </Typography>
+            <ResponseMessage message={errors.age && errors?.age?.message} />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <TextField
@@ -127,9 +119,9 @@ export const Form1 = ({ onContinue }: Props) => {
               fullWidth
               {...register("mobile")}
             />
-            <Typography color="red" sx={{ pt: 1 }}>
-              {errors.mobile && errors?.mobile?.message}
-            </Typography>
+            <ResponseMessage
+              message={errors.mobile && errors?.mobile?.message}
+            />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <Autocomplete
@@ -145,9 +137,7 @@ export const Form1 = ({ onContinue }: Props) => {
                 />
               )}
             />
-            <Typography color="red" sx={{ pt: 1 }}>
-              {errors.sex && errors?.sex?.message}
-            </Typography>
+            <ResponseMessage message={errors.sex && errors?.sex?.message} />
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
             <Autocomplete
@@ -159,9 +149,12 @@ export const Form1 = ({ onContinue }: Props) => {
                   label="Govt Id Type"
                   size="medium"
                   fullWidth
-                  // {...register("govtType")}
+                  {...register("govtIdType")}
                 />
               )}
+            />
+            <ResponseMessage
+              message={errors.govtIdType && errors?.govtIdType?.message}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
