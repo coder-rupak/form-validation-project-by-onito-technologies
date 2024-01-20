@@ -35,26 +35,33 @@ const schema = yup.object().shape({
     .min(3, "Min 3 character required"),
   age: yup
     .number()
-    .typeError("DOB must be a number")
+    .typeError("Age must be a number")
     .required("Age is required")
     .positive("Age must be a positive number")
     .integer("Age must be an integer"),
   mobile: yup
     .string()
     .required("Phone number required")
-    .matches(/^[6-9]\d{9}$/, "Please enter valid phone number"),
+    .matches(/^[6-9]\d{9}$/, "Please enter valid 10 digit phone number"),
   sex: yup
     .string()
-    .oneOf(["Female", "Male"], "Invalid gender")
+    .oneOf(["Female", "Male"], "Please select gender")
     .required("Gender is required"),
   govtIdType: yup
     .string()
-    .oneOf(["Aadhar", "Pan"])
-    .required("ID Type is required"),
-  // govtId: yup.string().when("govtIdType", {// <Typography color="red" sx={{ pt: 1 }}>
-  //   {errors.name && errors?.name?.message}
-  // </Typography>
-  //   then: yupe:
+    .oneOf(["Aadhar", "Pan"], "Please select Govt Id Type")
+    .required("Govt Id Type is required"),
+  // govtId: yup.string().when("govtIdType", {
+  //   is: "Aadhar",
+  //   then: (schema) => schema.required("Needed"),
+  //   otherwise: (schema) => schema, // technically this otherwise isnt needed
+  // }),
+  // govtId: yup.string().when("govtIdType", {
+  //   is: "Aadhar", //(govtIdType: string) => govtIdType === 'Aadhar',
+  //   then: yup
+  //     .string()
+  //     .matches(
+  //       /^[2-9]\d{11}$/,
   //       "Aadhar ID must be 12 digits and not start with 0 or 1"
   //     )
   //     .required("Aadhar ID is required"),
@@ -64,6 +71,7 @@ const schema = yup.object().shape({
   //     .required("PAN ID is required"),
   // }),
 });
+
 export const Form1 = ({ onContinue }: Props) => {
   const {
     register,
@@ -72,7 +80,6 @@ export const Form1 = ({ onContinue }: Props) => {
   } = useForm<FormInput>({ resolver: yupResolver(schema) });
 
   const onSubmit = (data: FormInput) => {
-    console.log("SUBMIT HIT");
     onContinue();
     console.log(data);
   };
@@ -166,6 +173,9 @@ export const Form1 = ({ onContinue }: Props) => {
               fullWidth
               // {...register("govtId")}
             />
+            {/* <ResponseMessage
+              message={errors.govtId && errors?.govtId?.message}
+            /> */}
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
             <Button variant="contained" fullWidth size="medium" type="submit">
